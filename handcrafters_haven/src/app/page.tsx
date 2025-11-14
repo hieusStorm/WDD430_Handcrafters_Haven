@@ -1,19 +1,19 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import "./globals.css";
 
-export default function Home() {
+ export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    /*<div className="page">
+      <main className="main">
         <Image
-          className={styles.logo}
+          className="logo"
           src="/next.svg"
           alt="Next.js logo"
           width={100}
           height={20}
           priority
         />
-        <div className={styles.intro}>
+        <div className="intro">
           <h1>To get started, edit the page.tsx file.</h1>
           <p>
             Looking for a starting point or more instructions? Head over to{" "}
@@ -35,15 +35,15 @@ export default function Home() {
             center.
           </p>
         </div>
-        <div className={styles.ctas}>
+        <div className="ctas">
           <a
-            className={styles.primary}
+            className="primary"
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image
-              className={styles.logo}
+              className="logo"
               src="/vercel.svg"
               alt="Vercel logomark"
               width={16}
@@ -52,7 +52,7 @@ export default function Home() {
             Deploy Now
           </a>
           <a
-            className={styles.secondary}
+            className="secondary"
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
@@ -62,5 +62,20 @@ export default function Home() {
         </div>
       </main>
     </div>
+    */
+   <div>
+    <h1>Welcome to Handcrafter's Haven!</h1>
+    <p>Your one-stop shop for all things handmade and artisanal.</p>
+
+    <h2>Featured Products</h2>
+    <p>Check out our selection of handmade goods, crafted with care by artisans from around the world.</p>
+    <img src="/featured-products.jpg" alt="Featured Handmade Products" width={600} height={400} />
+    <img src="/crafting.jpg" alt="Artisan Crafting Products" width={600} height={400} />
+    
+    <h2>Reviews</h2>
+    <p>See what our customers are saying about us!</p>
+    <p>"Wow I love all of this cool stuff!"</p>
+    <p>"Great quality and fast shipping!"</p>
+   </div>
   );
 }
