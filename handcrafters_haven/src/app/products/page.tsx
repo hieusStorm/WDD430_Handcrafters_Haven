@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { supabase } from "../../lib/supabaseClient";
+import ProductFilters from "../components/ProductFilters";
 // Fetch products from Supabase
 async function getProducts() {
   const { data, error } = await supabase.from("products").select("*");
@@ -21,6 +22,10 @@ export default async function Products() {
                 <p>...</p>
                 <p>Price: $</p>
             </div>
+
+             {/* Product filters */}
+      <h2>Filter Products</h2>
+      <ProductFilters />
             {/* a new display for all products from Supabase */}
       <h2>All Products</h2>
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
