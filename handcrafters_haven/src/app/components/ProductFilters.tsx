@@ -1,43 +1,42 @@
-"use client"; // Only needed if this component uses state/hooks
+"use client";
 
-import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient";
+import { useState } from "react";
 
-export default function ProductFilters() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [category, setCategory] = useState<string>("all");
-
-  async function fetchProducts(selectedCategory: string) {
-    let query = supabase.from("products").select("*");
-    if (selectedCategory !== "all") {
-      query = query.eq("category", selectedCategory);
-    }
-    const { data, error } = await query;
-    if (error) console.error(error);
-    else setProducts(data);
-  }
-
-  useEffect(() => {
-    fetchProducts(category);
-  }, [category]);
-
+export default function ProductFilters({ filters, setFilters }: any) {
   return (
-    <div>
-      <h2>Filter by Category</h2>
-      <select onChange={(e) => setCategory(e.target.value)} value={category}>
-        <option value="all">All</option>
-        <option value="jewelry">Jewelry</option>
-        <option value="decor">Decor</option>
-        <option value="clothing">Clothing</option>
-      </select>
+    <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+      {/* Search by product name */}
+      <input
+        type="text"
+        placeholder="Search..."
+        value={filters.search}
+        onChange={(e) =>
+          setFilters({ ...filters, search: e.target.value })
+        }
+        className="border p-2 rounded"
+      />
 
-      <ul>
-        {products.map((p) => (
-          <li key={p.id}>
-            {p.name} - ${p.price} ({p.category})
-          </li>
-        ))}
-      </ul>
+      {/* Min price */}
+      <input
+        type="number"
+        placeholder="Min Price"
+        value={filters.minPrice}
+        onChange={(e) =>
+          setFilters({ ...filters, minPrice: e.target.value })
+        }
+        className="border p-2 rounded"
+      />
+
+      {/* Max price */}
+      <input
+        type="number"
+        placeholder="Max Price"
+        value={filters.maxPrice}
+        onChange={(e) =>
+          setFilters({ ...filters, maxPrice: e.target.value })
+        }
+        className="border p-2 rounded"
+      />
     </div>
   );
 }
