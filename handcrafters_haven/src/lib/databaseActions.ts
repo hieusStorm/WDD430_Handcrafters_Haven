@@ -9,15 +9,17 @@ import { supabase } from "./supabaseClient";
 
 // items table
  export async function itemNameQuery(itemName:string) {
-    const {data, error} = await supabase.from("items").select().eq("name", itemName)
+    const {data, error} = await supabase.from("items").select().eq("name", itemName);
+    
     if (error) throw error;
 
     return data;
  }
 
- export async function addItem(name:string, description:string, price:number, image:string) {
-    const {data, error} = await supabase.from("items").insert({name:name, description:description, price:price, image:image}).select();
+ export async function addItem(name:string, description:string, price:number, image:string, catagory:string) {
+    const {data, error} = await supabase.from("items").insert({name:name, description:description, price:price, image:image, catagory:catagory}).select();
 
     if (error) throw error;
+
     return data;
  }
