@@ -1,28 +1,36 @@
-import Image from "next/image";
-import "./globals.css";
+"use client";
+
+import { useState, useEffect } from "react";
+import AuthForm from "../components/AuthForm";
+import AccountInfo from "../components/AccountInfo";
+import "../globals.css";
 
 export default function AccountPage() {
-  return (
-    <div>
-      <h1>Account Page</h1>
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-      <form>
-        <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" />
+  useEffect(() => {
+    // Check if the user is signe in
+    const checkUser = () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setLoading(false);
+    };
 
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" />
-        <button type="submit">Update Account</button>
-      </form>
+    checkUser();
+  }, []);
 
-      <div className="account-orders">
-        <h2>Order History</h2>
-        <ul>
-          {}
-        </ul>
-      </div>
+  if (loading) {
+    return <div className="account_container">Loading...</div>;
+  }
 
-      
-    </div>
-  );
+  // Account info component
+  if (user) {
+    return <AccountInfo user={user} />;
+  }
+
+  // continue to show the authorization form if creds are not found
+  return <AuthForm onAuthSuccess={(userData) => setUser(userData)} />;
 }
