@@ -27,7 +27,7 @@ export default function AccountInfo({ user }: AccountInfoProps) {
         <h2>Account Information</h2>
         <p><strong>Name:</strong> {user.name || "N/A"}</p>
         <p><strong>Email:</strong> {user.email}</p>
-        <button onClick={handleSignOut} className="sign_out_button">
+        <button onClick={handleSignOut} className="sign_button">
           Sign Out
         </button>
       </div>

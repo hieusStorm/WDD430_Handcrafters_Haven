@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import AuthForm from "../components/AuthForm";
 import AccountInfo from "../components/AccountInfo";
+import AddItem from "../components/AddItem";
 import "../globals.css";
 
 export default function AccountPage() {
@@ -10,7 +11,7 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if the user is signe in
+    // Check if the user is signed in
     const checkUser = () => {
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
@@ -26,11 +27,19 @@ export default function AccountPage() {
     return <div className="account_container">Loading...</div>;
   }
 
-  // Account info component
+  // Account info component with add item form
   if (user) {
-    return <AccountInfo user={user} />;
+    return (
+      <div className="account_container">
+        <AccountInfo user={user} />
+        <AddItem />
+      </div>
+    );
   }
 
-  // continue to show the authorization form if creds are not found
+  // continue to show the form if creds are not found
   return <AuthForm onAuthSuccess={(userData) => setUser(userData)} />;
 }
+
+
+
