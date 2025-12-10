@@ -93,7 +93,7 @@ export default function Home() {
       )}
 
       <Link href="/reviews">
-        <button style={{ marginTop: "20px" }}>See All Reviews</button>
+        <button style={{ marginTop: "20px" }} className="shop-button">See All Reviews</button>
       </Link>
     </div>
   );
