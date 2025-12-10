@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import bcrypt from 'bcryptjs';
+
+
 
 export default function AddUser() {
   const [user, setUser] = useState({
@@ -10,16 +13,17 @@ export default function AddUser() {
     password: "",
   });
   const [message, setMessage] = useState("");
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("");
+    const hashedPassword = bcrypt.hash(user.password, 10);
 
     const { data, error } = await supabase.from("account").insert([
       {
         name: user.name,
         email: user.email,
-        password: user.password,
+        password: await hashedPassword,
       },
     ]);
 

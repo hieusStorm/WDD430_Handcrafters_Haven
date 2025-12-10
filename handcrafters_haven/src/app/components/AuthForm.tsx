@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import bcrypt from 'bcryptjs';
 
 interface AuthFormProps {
   onAuthSuccess?: (userData: any) => void;
@@ -26,10 +27,14 @@ export default function AuthForm({ onAuthSuccess }: AuthFormProps) {
         .from("account")
         .select("*")
         .eq("email", email)
-        .eq("password", password)
         .single();
 
       if (error || !data) {
+        throw new Error("Invalid email or password");
+      }
+      // Compare the password with the hashed password
+  const isPasswordValid = await bcrypt.compare(password, data.password);
+      if (!isPasswordValid) {
         throw new Error("Invalid email or password");
       }
 
@@ -117,7 +122,7 @@ export default function AuthForm({ onAuthSuccess }: AuthFormProps) {
           />
         </div>
 
-        <button type="submit" className="submit-btn">
+        <button type="submit" className="sign_button">
           {isSignUp ? "Sign Up" : "Sign In"}
         </button>
       </form>
@@ -130,7 +135,7 @@ export default function AuthForm({ onAuthSuccess }: AuthFormProps) {
             setError("");
             setMessage("");
           }}
-          className="toggle-btn"
+          className="sign_button"
         >
           {isSignUp ? "Sign In" : "Sign Up"}
         </button>

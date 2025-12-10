@@ -70,3 +70,34 @@ a {
 .shop-button:hover {
   background-color: #7ba4f0;
 }
+
+.account_info {
+  margin: 20px 0;
+  font-size: 18px;
+}
+
+.account_container {
+  
+}
+
+.sign_button {
+  padding: 10px 20px;
+  background-color: #f4a719;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign_button:hover {
+  background-color: #000;
+  color: #f4a719;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
