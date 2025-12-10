@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import Image from "next/image";
+import ProductFilters from "../components/ProductFilters";
+import AddCartButton from "../components/AddCartButton";
+
 
 interface AccountInfoProps {
   user: any;
@@ -62,16 +66,41 @@ export default function AccountInfo({ user }: AccountInfoProps) {
         <h2>My Items</h2>
         {loading ? (
           <p>Loading items...</p>
+          
         ) : items.length > 0 ? (
-          <ul>
-            {items.map((item) => (
-              <li key={item.id}>
-                <strong>{item.name}</strong> - ${item.price}
-                <br />
-                <small>{item.description}</small>
-              </li>
-            ))}
-          </ul>
+          <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+          >
+            {items.map((item) => (<div key={item.id} className="product_card">
+                            <h2>{item.name}</h2>
+                            {item.image ? (
+                              <Image src={item.image} alt={item.name} width={300} height={200} />
+                            ) : (
+                              <Image src="/placeholder.png" alt="Placeholder" width={300} height={200} />
+                            )}
+                            <h3>{item.description}</h3>
+                            <p>Price: ${item.price}</p>
+                            <AddCartButton value={item.name} />
+                            <button
+                              style={{
+                                marginTop: "10px",
+                                backgroundColor: "red",
+                                color: "white",
+                                border: "none",
+                                padding: "5px 10px",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteItem(item.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>))}
+          </div>
         ) : (
           <p>No items yet</p>
         )}
