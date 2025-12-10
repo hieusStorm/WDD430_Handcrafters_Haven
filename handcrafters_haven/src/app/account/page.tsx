@@ -30,10 +30,12 @@ export default function AccountPage() {
   // Account info component with add item form
   if (user) {
     return (
+      <main>
       <div className="account_container">
         <AccountInfo user={user} />
         <AddItem />
       </div>
+      </main>
     );
   }
 
